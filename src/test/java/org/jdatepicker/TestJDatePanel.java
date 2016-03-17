@@ -27,22 +27,49 @@
  */
 package org.jdatepicker;
 
-import javax.swing.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.Calendar;
+import java.util.Date;
+
+import javax.swing.JComponent;
+import javax.swing.JFrame;
+import javax.swing.WindowConstants;
+
+import org.jdatepicker.constraints.RangeConstraint;
 
 public class TestJDatePanel {
 
     public static void main(String[] args) {
         JFrame testFrame = new JFrame();
-        DatePanel panel = new JDatePanel();
+        final DatePanel panel = new JDatePanel();
         panel.setShowYearButtons(true);
-        testFrame.getContentPane().add((JComponent) panel);
+        testFrame.getContentPane().add((JComponent)panel);
         // TODO create a feature class to describe these types of variables
         panel.setShowYearButtons(false);
         panel.setShowYearButtons(true);
 
+        Calendar afterDay = Calendar.getInstance();
+        afterDay.setTime(new Date());
+
+        Calendar beforeDay = Calendar.getInstance();
+        beforeDay.setTime(new Date());
+        beforeDay.add(Calendar.DAY_OF_MONTH, 3);
+
+        panel.addDateSelectionConstraint(new RangeConstraint(afterDay, beforeDay));
+
         testFrame.setSize(300, 300);
         testFrame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
         testFrame.setVisible(true);
+
+        panel.addActionListener(new ActionListener() {
+
+            public void actionPerformed(ActionEvent e) {
+                System.err.println(panel.getModel().getDay());
+            }
+        });
+
+        panel.getModel().setDate(afterDay.get(Calendar.YEAR), afterDay.get(Calendar.MONTH), afterDay.get(Calendar.DATE));
     }
 
 }

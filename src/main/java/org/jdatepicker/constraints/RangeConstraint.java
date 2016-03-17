@@ -27,10 +27,10 @@
  */
 package org.jdatepicker.constraints;
 
-import org.jdatepicker.DateModel;
-
 import java.util.Calendar;
 import java.util.Date;
+
+import org.jdatepicker.DateModel;
 
 /**
  * This class provides a simple constraint to limit the selectable date to be inside a given range.
@@ -149,7 +149,7 @@ public class RangeConstraint implements DateSelectionConstraint {
             return false;
         }
 
-        RangeConstraint other = (RangeConstraint) obj;
+        RangeConstraint other = (RangeConstraint)obj;
         if (after == null) {
             if (other.after != null) {
                 return false;
